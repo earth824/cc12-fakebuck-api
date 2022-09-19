@@ -37,5 +37,54 @@ module.exports = (sequelize, DataTypes) => {
     { underscored: true }
   );
 
+  User.associate = db => {
+    User.hasMany(db.Post, {
+      foreignKey: {
+        name: 'userId',
+        allowNull: false
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT'
+    });
+
+    User.hasMany(db.Comment, {
+      foreignKey: {
+        name: 'userId',
+        allowNull: false
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT'
+    });
+
+    User.hasMany(db.Like, {
+      foreignKey: {
+        name: 'userId',
+        allowNull: false
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT'
+    });
+
+    User.hasMany(db.Friend, {
+      as: 'Requester',
+      foreignKey: {
+        name: 'requesterId',
+        allowNull: false
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT'
+    });
+
+    User.hasMany(db.Friend, {
+      as: 'Accepter',
+      foreignKey: {
+        name: 'accepterId',
+        allowNull: false
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT'
+    });
+  };
+
   return User;
 };
