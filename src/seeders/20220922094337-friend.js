@@ -1,6 +1,6 @@
 'use strict';
 
-const { FRIEND_ACCEPTED } = require('../config/constants');
+const { FRIEND_ACCEPTED, FRIEND_PENDING } = require('../config/constants');
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -50,6 +50,41 @@ module.exports = {
         updated_at: new Date(),
         requester_id: 33,
         accepter_id: 2
+      },
+      {
+        status: FRIEND_PENDING,
+        created_at: new Date(),
+        updated_at: new Date(),
+        requester_id: 33,
+        accepter_id: 1
+      },
+      {
+        status: FRIEND_PENDING,
+        created_at: new Date(),
+        updated_at: new Date(),
+        requester_id: 1,
+        accepter_id: 7
+      },
+      {
+        status: FRIEND_PENDING,
+        created_at: new Date(),
+        updated_at: new Date(),
+        requester_id: 1,
+        accepter_id: 36
+      },
+      {
+        status: FRIEND_PENDING,
+        created_at: new Date(),
+        updated_at: new Date(),
+        requester_id: 36,
+        accepter_id: 2
+      },
+      {
+        status: FRIEND_PENDING,
+        created_at: new Date(),
+        updated_at: new Date(),
+        requester_id: 33,
+        accepter_id: 36
       }
     ]);
   },

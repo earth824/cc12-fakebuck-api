@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const authRoute = require('./routes/authRoute');
+const friendRoute = require('./routes/friendRoute');
 const userRoute = require('./routes/userRoute');
 const notFound = require('./middlewares/notFound');
 const error = require('./middlewares/error');
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRoute);
+app.use('/friends', authenticate, friendRoute);
 app.use('/users', authenticate, userRoute);
 
 app.use(notFound);
