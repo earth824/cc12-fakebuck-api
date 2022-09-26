@@ -9,8 +9,7 @@ const {
 } = require('../config/constants');
 const { User, Friend } = require('../models');
 
-exports.findUserFriendsByUserId = async id => {
-  // SELECT * FROM friends WHERE status = 'ACCEPTED' AND (requester_id = '2' OR accepter_id = '2')
+const findUserFriendIdsByuserId = async id => {
   const friends = await Friend.findAll({
     where: {
       status: FRIEND_ACCEPTED,
@@ -21,9 +20,14 @@ exports.findUserFriendsByUserId = async id => {
   const friendIds = friends.map(item =>
     item.requesterId === id ? item.accepterId : item.requesterId
   );
+  return friendIds;
+};
 
-  console.log(friendIds);
+exports.findUserFriendIdsByuserId = findUserFriendIdsByuserId;
 
+exports.findUserFriendsByUserId = async id => {
+  // SELECT * FROM friends WHERE status = 'ACCEPTED' AND (requester_id = '2' OR accepter_id = '2')
+  const friendIds = await findUserFriendIdsByuserId(id);
   return User.findAll({
     where: { id: friendIds },
     attributes: { exclude: 'password' }
